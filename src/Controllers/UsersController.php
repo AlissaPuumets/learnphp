@@ -15,7 +15,11 @@ class UsersController
 
     public function view()
     {
-
+        $user = User::find($_GET['id']);
+        if($user) {
+            return view('users/view', compact('user'));
+        }
+        echo 404;
     }
 
     public function edit()
