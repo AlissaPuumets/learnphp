@@ -66,6 +66,15 @@ class UsersController
 
     public function delete()
     {
-
+        $user = User::find($_GET['id']);
+        if($user) {
+            $user->delete();
+            // deleting yourself also logs you out
+            if(($_SESSION['userID'] ?? null) == $user->id) {
+                unset($_SESSION['userID']);
+            }
+            return redirect('/admin/users');
+        }
+        echo 404;
     }
 }
